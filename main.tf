@@ -72,12 +72,13 @@ resource "aws_instance" "web" {
   key_name = "my-keypair"
 
   user_data = <<-EOF
-              #!/bin/bash
-              yum update -y
-              amazon-linux-extras install nginx1 -y
-              systemctl start nginx
-              echo \"<h1>Hello from Terraform!</h1>\" > /usr/share/nginx/html/index.html
-              EOF
+           #!/bin/bash
+           yum update -y
+           yum install -y nginx
+           systemctl start nginx
+           systemctl enable nginx
+           echo "<h1>Hello from Terraform!</h1>" > /var/www/html/index.html
+           EOF
 
   tags = {
     Name = "terraform-web"
